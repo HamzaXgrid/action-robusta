@@ -36,7 +36,7 @@ def checkUnboundPv(event: PodEvent):
     podNamespace=pod.metadata.namespace
     #print("Pod is :", pod)
     for volume in pod.spec.volumes:
-        print(volume)
+        print("volume is",volume)
         #if volume.persistent_volume_claim:
         pvc_name = volume.name
         print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
