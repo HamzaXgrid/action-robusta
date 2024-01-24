@@ -38,7 +38,7 @@ def checkUnboundPv(event: PodEvent):
     for volume in pod.spec.volumes:
         print(volume)
         #if volume.persistent_volume_claim:
-        pvc_name = volume.persistent_volume_claim.claim_name
+        pvc_name = volume.name
         print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
     finding.title = f"Pod Content:"
     finding.add_enrichment(
