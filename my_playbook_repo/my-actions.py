@@ -34,11 +34,12 @@ def checkUnboundPv(event: PodEvent):
     api = client.CoreV1Api()
     podName=pod.metadata.name
     podNamespace=pod.metadata.namespace
-    print("Pod is :", pod)
+    #print("Pod is :", pod)
     for volume in pod.spec.volumes:
-        if volume.persistent_volume_claim:
-            pvc_name = volume.persistent_volume_claim.claim_name
-            print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
+        print(volume)
+        #if volume.persistent_volume_claim:
+        pvc_name = volume.persistent_volume_claim.claim_name
+        print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
     finding.title = f"Pod Content:"
     finding.add_enrichment(
         [
