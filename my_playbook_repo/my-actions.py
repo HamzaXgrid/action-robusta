@@ -34,7 +34,8 @@ def checkUnboundPv(event: PodEvent):
     api = client.CoreV1Api()
     podName=pod.metadata.name
     podNamespace=pod.metadata.namespace
-    #print("Pod is :", pod)
+    pod1 = api.read_namespaced_pod(name=podName, namespace=podNamespace)
+    print("Pod is :", pod1)
     for volume in pod.spec.volumes:
         print("volume is",volume)
         #if volume.persistent_volume_claim:
