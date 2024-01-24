@@ -38,12 +38,25 @@ def checkUnboundPv(event: PodEvent):
     print("Pod is :", pod1)
     print("pod1 metadata",pod1.metadata)
     print("pod1 metadata name",pod1.metadata.name)
-    for volume in pod.spec.volumes:
-        print("volume is",volume)
+    for container in pod1.spec.containers:
+        print(f"  - {container.name}")
+        print(f"Pod IP: {pod1.status.pod_ip}")
+
+        # Get the list of volumes in the pod
+        volumes = pod1.spec.volumes
+
+        # Find the volume that is associated with a PVC
+        pvc_volume = next((volume for volume in volumes if volume.persistent_volume_claim), None)
+
+        if pvc_volume:
+            # Get the name of the PVC
+            pvc_name = pvc_volume.persistent_volume_claim.claim_name
+    for volume1 in pod.spec.volumes:
+        print("volume is",volume1)
         #if volume.persistent_volume_claim:
         pvc_name = pod1.spec.volumes.persistentVolumeClaim
-        print("pvc is",pvc_name)
-        print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
+        #print("pvc is",pvc_name)
+        #print(f"PersistentVolumeClaim Name for Pod {podName}: {pvc_name}")
     finding.title = f"Pod Content:"
     finding.add_enrichment(
         [
