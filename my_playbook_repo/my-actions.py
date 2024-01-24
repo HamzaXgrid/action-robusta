@@ -15,12 +15,33 @@ from robusta.api import (
     Finding,
     FindingSource,
     MarkdownBlock,
-    PersistentVolumeEvent,
+    PersistentVolumeEvent,ActionException, ErrorCodes,
+    PodEvent,
     RobustaPod,
     action,
 )
 
 @action
+def checkUnboundPv(event: PodEvent):
+    finding = Finding(
+        title="Pod unbound content",
+        source=FindingSource.MANUAL,
+        aggregation_key="checkUnboundPv",
+    )
+    if not event.get_pod():
+        raise ActionException(ErrorCodes.RESOURCE_NOT_FOUND, "Failed to get the pod for deletion")
+    pod=event.get_pod()
+    api = client.CoreV1Api()
+    podName=pod.metadata.name
+    print("The name of pod is:", podName)
+    finding.title = f"Pod Content:"
+    finding.add_enrichment(
+        [
+            MarkdownBlock("Data on the Pod "),
+        ]
+        )
+    event.add_finding(finding)
+
 def List_of_Files_on_PV(event: PersistentVolumeEvent):
     finding = Finding(
         title="Persistent Volume content",
