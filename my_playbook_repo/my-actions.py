@@ -51,7 +51,7 @@ def checkUnboundPv(event: PodEvent):
             # Get the name of the PVC
             pvcName = pvcVolume.persistent_volume_claim.claim_name
             print("pvc name",pvcName)
-        pvc = api.read_namespaced_persistent_volume_claim(pvcName , pvcNameSpace)
+        pvc = api.read_namespaced_persistent_volume_claim(pvcName , podNamespace)
         print("pvc is ",pvc)
     finding.title = f"Pod Content:"
     finding.add_enrichment(
