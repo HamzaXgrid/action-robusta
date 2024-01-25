@@ -55,6 +55,13 @@ def checkUnboundPv(event: PodEvent):
         print("pvc is ",pvc)
         print("pvx is ",pvc.spec.access_modes)
         print("pvx1 is ",pvc.spec.volume_name)
+        if not pvc.spec.volume_name:
+            finding.add_enrichment(
+        [
+            MarkdownBlock("Unboud PVC is attached to pod "+podName),
+        ] )
+        else:
+            print("PVC is bound with PV")
         
     finding.title = f"Pod Content:"
     finding.add_enrichment(
