@@ -53,6 +53,9 @@ def checkUnboundPv(event: PodEvent):
             print("pvc name",pvcName)
         pvc = api.read_namespaced_persistent_volume_claim(pvcName , podNamespace)
         print("pvc is ",pvc)
+        print("pvx is ",pvc.spec.access_modes)
+        print("pvx1 is ",pvc.spec.volume_name)
+        
     finding.title = f"Pod Content:"
     finding.add_enrichment(
         [
@@ -60,6 +63,22 @@ def checkUnboundPv(event: PodEvent):
         ]
         )
     event.add_finding(finding)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def List_of_Files_on_PV(event: PersistentVolumeEvent):
     finding = Finding(

@@ -13,4 +13,4 @@ spec:
   volumes:
   - name: my-pvc-volume
     persistentVolumeClaim:
-      claimName: my-pvc   # Name of the Persistent Volume Claim to be mounted
+      claimName: my-pvc1   # Name of the Persistent Volume Claim to be mounted
